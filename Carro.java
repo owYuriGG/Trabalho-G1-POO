@@ -25,26 +25,26 @@ public class Carro {
         this.recargas = new ArrayList<Recarga>();
     }
 
-    public void listarRecargas(){
-        for (Recarga recarga: recargas){
-            System.out.println("Recarga: Data - " + recarga.getData() + " ID do Eletroposto: " + recarga.getEletropostoId() + " Quantia recarregada: " + recarga.getQuantia_carregada() + "kWh");
+    public void listarRecargas() {
+        for (Recarga recarga : recargas) {
+            System.out.println("Recarga: Data - " + recarga.getData() + " ID do Eletroposto: "
+                    + recarga.getEletropostoId() + " Quantia recarregada: " + recarga.getQuantia_carregada() + "kWh");
         }
     }
 
-    public void addRecarga(Recarga recarga){
+    public void addRecarga(Recarga recarga) {
         recargas.add(recarga);
     }
 
-
-    public List<Recarga> getRecargas(){
+    public List<Recarga> getRecargas() {
         return recargas;
     }
 
-    public Double getQuilometragem(){
+    public Double getQuilometragem() {
         return quilometragem;
     }
 
-    private void addQuilometragem(Double quilometragem){
+    private void addQuilometragem(Double quilometragem) {
         this.quilometragem += quilometragem;
     }
 
@@ -80,27 +80,33 @@ public class Carro {
         return tempo_recarga;
     }
 
-    public Double getBateria(){
+    public Double getBateria() {
         return bateria;
     }
 
-    public void Andar(Double km){
+    public void Andar(Double km) {
         bateria -= km;
         autonomia -= km;
         addQuilometragem(km);
     }
 
-    public void addBateria(Double carga){
-        bateria += carga;
-        autonomia = bateria;
+    public void addBateria(Double carga) {
+        if ((bateria + carga) <= bateria_max) {
+            bateria += carga;
+            autonomia = bateria;
+        } else {
+            System.out.println("Esta carga excede a batería máxima! A carga foi limitada.");
+            bateria = bateria_max;
+            autonomia = bateria;
+        }
     }
 
-    public void setBateria(Double quantia){
+    public void setBateria(Double quantia) {
         bateria = quantia;
         autonomia = quantia;
     }
 
-    public Double getBateriaMax(){
+    public Double getBateriaMax() {
         return bateria_max;
     }
 }

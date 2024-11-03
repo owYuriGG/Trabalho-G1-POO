@@ -44,5 +44,9 @@ public class Main {
 
         System.out.println("\nViagens realizadas pelo motorista 1:");
         sistema.ListarViagensMotorista(sistema.getMotoristas().get(0));
+
+        System.out.println("\nEletropostos totais do sistema: ");
+        sistema.listarEletropostos();
     }
+
 }

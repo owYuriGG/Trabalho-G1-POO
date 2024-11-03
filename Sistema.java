@@ -34,6 +34,15 @@ public class Sistema {
         viagens.add(viagem);
     }
 
+    public void listarEletropostos(){
+        for (Rota rota: rotas){
+            System.out.println("Eletropostos da rota ID" + rota.getId());
+            for (Eletroposto eletroposto : rota.getEletropostos()){
+                System.out.println(" * Eletroposto ID " + eletroposto.getId());
+            }
+        }
+    }
+
     public void listarViagens(){
         for (Viagem viagem: viagens){
             System.out.println("ID da viagem: " + viagem.getId() + " ID do motorista: " + viagem.getMotorista().getId() + " Distância percorrida: " + viagem.getQuilometragem() + "km ID do veículo utilizado: " + viagem.getCarro().getId() + " Paradas: " + viagem.getAbastecimentos());
