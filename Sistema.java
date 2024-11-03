@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.List;
 
 public class Sistema {
@@ -5,6 +6,22 @@ public class Sistema {
     private List<Motorista> motoristas;
     private List<Viagem> viagens;
     private List<Rota> rotas;
+
+    public Sistema() {
+        this.carros = new ArrayList<Carro>();
+        this.motoristas = new ArrayList<Motorista>();
+        this.viagens = new ArrayList<Viagem>();
+        this.rotas = new ArrayList<Rota>();
+    }
+
+    public void realizarViagem(int RotaId, int CarroId, int MotoristaId){
+        rotas.get(RotaId).Viajar(carros.get(CarroId), motoristas.get(MotoristaId), this);
+        System.out.println("Viagem realizada!");
+    }
+
+    public void registrarViagem(Viagem viagem){
+        viagens.add(viagem);
+    }
 
     public void listarViagens(){
         for (Viagem viagem: viagens){
@@ -35,11 +52,6 @@ public class Sistema {
                 System.out.println(carro.getId());
             }
         }
-    }
-
-    public void registrarViagem(Viagem viagem){
-        viagens.add(viagem);
-        System.out.println("Viagem registrada!");
     }
 
     public void addCarro (Carro carro){
