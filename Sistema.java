@@ -14,6 +14,10 @@ public class Sistema {
         this.rotas = new ArrayList<Rota>();
     }
 
+    public void addRota(Rota rota){
+        rotas.add(rota);
+    }
+
     public void realizarViagem(int RotaId, int CarroId, int MotoristaId){
         rotas.get(RotaId).Viajar(carros.get(CarroId), motoristas.get(MotoristaId), this);
         System.out.println("Viagem realizada!");
