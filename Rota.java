@@ -18,9 +18,9 @@ public class Rota {
     public void Viajar(Carro carro, Motorista motorista, Sistema sistema) {
         List<Object> response = VerificarDistancia(carro, 0, new ArrayList<Eletroposto>());
         if ((Boolean) response.get(0)) {
-            this.PercorrerViagem(carro, (List<Eletroposto>) response.get(2));
+            this.PercorrerViagem(carro, (List<Eletroposto>) response.get(1));
             sistema.registrarViagem(
-                    new Viagem(id, carro, this, motorista, this.getDistancia(), (List<Eletroposto>) response.get(2)));
+                    new Viagem(id, carro, this, motorista, this.getDistancia(), (List<Eletroposto>) response.get(1)));
         } else {
             System.out.println(
                     "ERRO! A viagem não foi realizada devido a falta de autonomia no carro e não possibilidade de recarga.");
@@ -63,11 +63,22 @@ public class Rota {
 
     public List<Object> VerificarDistancia(Carro carro, double km, List<Eletroposto> paradas) {
         List<Object> lista = new ArrayList<>();
-
         double autonomiaAtual = carro.getAutonomia();
         double distanciaPercorrida = km;
+    
+        if (eletropostos.isEmpty()) {
+            if (autonomiaAtual >= this.distancia) {
+                lista.add(true);
+                lista.add(paradas);
+                return lista;
+            } else {
+                lista.add(false);
+                return lista;
+            }
+        }
+    
         boolean destinoAtingivel = false;
-
+    
         for (Eletroposto eletroposto : eletropostos) {
             if (eletroposto.getKm() > distanciaPercorrida
                     && (eletroposto.getKm() - distanciaPercorrida) <= autonomiaAtual) {
@@ -76,19 +87,18 @@ public class Rota {
                 autonomiaAtual = carro.getBateriaMax();
             }
         }
-
+    
         if ((this.distancia - distanciaPercorrida) <= autonomiaAtual) {
             destinoAtingivel = true;
         }
-
+    
         if (destinoAtingivel) {
             lista.add(true);
-            lista.add(autonomiaAtual - (this.distancia - distanciaPercorrida));
             lista.add(paradas);
         } else {
             lista.add(false);
         }
-
+    
         return lista;
     }
 
