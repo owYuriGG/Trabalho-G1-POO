@@ -25,7 +25,7 @@ public class Eletroposto {
             LocalDateTime data = LocalDateTime.now();
 
             carro.addRecarga( new Recarga(data, this.getId(), recarregar));
-            System.out.println("Carro recarregado!");
+            System.out.println("Carro recarregado! \n");
             this.removeCarro();
         } else {
             System.out.println("Não há vagas para carregar!");
@@ -55,9 +55,7 @@ public class Eletroposto {
     }
 
     public void removeCarro(){
-        if (this.vagas_disponiveis > 0){
-            this.vagas_disponiveis -= 1;
-        }
+        this.vagas_disponiveis += 1;
     }
 
     public Double getTempo_carregamento() {

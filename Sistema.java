@@ -18,9 +18,16 @@ public class Sistema {
         rotas.add(rota);
     }
 
-    public void realizarViagem(int RotaId, int CarroId, int MotoristaId){
-        rotas.get(RotaId).Viajar(carros.get(CarroId), motoristas.get(MotoristaId), this);
-        System.out.println("Viagem realizada!");
+    public void realizarViagem(int rotaId, int carroId, int motoristaId) {
+        Rota rota = buscarRotaPorId(rotaId);
+        Carro carro = buscarCarroPorId(carroId);
+        Motorista motorista = buscarMotoristaPorId(motoristaId);
+    
+        if (rota != null && carro != null && motorista != null) {
+            rota.Viajar(carro, motorista, this);
+        } else {
+            System.out.println("Erro: Rota, Carro ou Motorista não encontrados com os IDs fornecidos.");
+        }
     }
 
     public void registrarViagem(Viagem viagem){
@@ -29,14 +36,14 @@ public class Sistema {
 
     public void listarViagens(){
         for (Viagem viagem: viagens){
-            System.out.println("Viagem: " + viagem.getId() + " Motorista: " + viagem.getMotorista() + " Distância percorrida: " + viagem.getQuilometragem() + " Veículo utilizado: " + viagem.getCarro().getId() + "Abastecimentos: " + viagem.getAbastecimentos());
+            System.out.println("ID da viagem: " + viagem.getId() + " ID do motorista: " + viagem.getMotorista().getId() + " Distância percorrida: " + viagem.getQuilometragem() + "km ID do veículo utilizado: " + viagem.getCarro().getId() + " Paradas: " + viagem.getAbastecimentos());
         }
     }
 
     public void listarVeiculosAutonomiaBaixa(){
         System.out.println("Carros com autonomia inferior a 20%:");
         for (Carro carro : carros){
-            if (carro.getAutonomia() > (carro.getBateria_max() * 0.20)){
+            if (carro.getAutonomia() <= (carro.getBateriaMax() * 0.20)){
                 System.out.println("Carro ID: " + carro.getId());
             }
         }
@@ -45,7 +52,7 @@ public class Sistema {
     public void ListarViagensMotorista(Motorista motorista){
         for (Viagem viagem: viagens){
             if (viagem.getId() == motorista.getId()){
-                System.out.println("Viagem: " + viagem.getId() + " Motorista: " + viagem.getMotorista() + " Distância percorrida: " + viagem.getQuilometragem() + " Veículo utilizado: " + viagem.getCarro().getId() + "Abastecimentos: " + viagem.getAbastecimentos());
+                System.out.println("ID da viagem: " + viagem.getId() + " Distância percorrida: " + viagem.getQuilometragem() + " Veículo utilizado: " + viagem.getCarro().getId() + " Paradas: " + viagem.getAbastecimentos());
             }
         }
     }
@@ -68,9 +75,13 @@ public class Sistema {
         System.err.println("O carro " + carro.getId() + " foi removido com sucesso.");
     }
 
+    public List<Carro> getCarros(){
+        return carros;
+    }
+
     public void listarCarros(){
         for (Carro carro: carros){
-            System.err.println("Carro: " + carro.getId());
+            System.err.println("Carro ID: " + carro.getId());
         }
     }
 
@@ -84,9 +95,40 @@ public class Sistema {
         System.err.println("O motorista " + motorista.getId() + " foi removido com sucesso.");
     }
 
+    public List<Motorista> getMotoristas(){
+        return motoristas;
+    }
+
     public void listarMotoristas(){
         for (Motorista motorista: motoristas){
             System.out.println("Motorista: " + motorista.getNome());
         }
+    }
+
+    private Rota buscarRotaPorId(int id) {
+        for (Rota rota : rotas) {
+            if (rota.getId() == id) {
+                return rota;
+            }
+        }
+        return null;
+    }
+    
+    private Carro buscarCarroPorId(int id) {
+        for (Carro carro : carros) {
+            if (carro.getId() == id) {
+                return carro;
+            }
+        }
+        return null;
+    }
+    
+    private Motorista buscarMotoristaPorId(int id) {
+        for (Motorista motorista : motoristas) {
+            if (motorista.getId() == id) {
+                return motorista;
+            }
+        }
+        return null;
     }
 }

@@ -27,12 +27,14 @@ public class Rota {
         }
     }
 
-    public void PercorrerViagem(Carro carro, List<Eletroposto> paradas) {
+    private void PercorrerViagem(Carro carro, List<Eletroposto> paradas) {
+        double distanciaPercorrida = 0;
         if (paradas.size() > 0) {
             for (int index = 0; index < paradas.size(); index++) {
                 Eletroposto eletroposto = paradas.get(index);
                 System.out.println("Chegando a um eletroposto.. Verificando vagas..");
-
+                carro.Andar(eletroposto.getKm() - distanciaPercorrida );
+                distanciaPercorrida = eletroposto.getKm();
                 if (eletroposto.getVagas_disponiveis() > 0) {
                     System.out.println("Vagas disponível! Recarregando...");
                     eletroposto.carregarCarro(carro);
@@ -48,25 +50,19 @@ public class Rota {
                     }
                 }
 
-                if (index == paradas.size()) {
+                if (index == paradas.size() - 1) {
                     System.out.println("Último reabastecimento realizado, indo ao destino final!");
-                    carro.setBateria(this.distancia - eletroposto.getKm());
-                    carro.addQuilometragem(this.distancia);
+                    carro.Andar(this.distancia - distanciaPercorrida);
                 }
             }
+        }else {
+            carro.Andar(this.distancia);
         }
-        System.out.println("Viagem finalizada! Distância total: " + this.distancia);
+        System.out.println("Viagem finalizada! Distância total: " + this.distancia + "km\nAutonomia final do carro: " + carro.getAutonomia() + "km");
     }
 
     public List<Object> VerificarDistancia(Carro carro, double km, List<Eletroposto> paradas) {
         List<Object> lista = new ArrayList<>();
-
-        if (carro.getAutonomia() >= this.distancia) {
-            lista.add(true);
-            lista.add(carro.getAutonomia() - this.distancia);
-            lista.add(paradas);
-            return lista;
-        }
 
         double autonomiaAtual = carro.getAutonomia();
         double distanciaPercorrida = km;
@@ -77,7 +73,7 @@ public class Rota {
                     && (eletroposto.getKm() - distanciaPercorrida) <= autonomiaAtual) {
                 paradas.add(eletroposto);
                 distanciaPercorrida = eletroposto.getKm();
-                autonomiaAtual = carro.getBateria_max();
+                autonomiaAtual = carro.getBateriaMax();
             }
         }
 

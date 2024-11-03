@@ -33,7 +33,6 @@ public class Carro {
 
     public void addRecarga(Recarga recarga){
         recargas.add(recarga);
-        System.out.println("Recarga registrada.");
     }
 
 
@@ -45,7 +44,7 @@ public class Carro {
         return quilometragem;
     }
 
-    public void addQuilometragem(Double quilometragem){
+    private void addQuilometragem(Double quilometragem){
         this.quilometragem += quilometragem;
     }
 
@@ -85,9 +84,15 @@ public class Carro {
         return bateria;
     }
 
+    public void Andar(Double km){
+        bateria -= km;
+        autonomia -= km;
+        addQuilometragem(km);
+    }
+
     public void addBateria(Double carga){
         bateria += carga;
-        autonomia = carga;
+        autonomia = bateria;
     }
 
     public void setBateria(Double quantia){
@@ -96,10 +101,6 @@ public class Carro {
     }
 
     public Double getBateriaMax(){
-        return bateria_max;
-    }
-
-    public double getBateria_max() {
         return bateria_max;
     }
 }
