@@ -2,13 +2,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Sistema {
-    private List<Carro> carros;
+    private List<CarroEletrico> carros;
     private List<Motorista> motoristas;
     private List<Viagem> viagens;
     private List<Rota> rotas;
 
     public Sistema() {
-        this.carros = new ArrayList<Carro>();
+        this.carros = new ArrayList<CarroEletrico>();
         this.motoristas = new ArrayList<Motorista>();
         this.viagens = new ArrayList<Viagem>();
         this.rotas = new ArrayList<Rota>();
@@ -20,7 +20,7 @@ public class Sistema {
 
     public void realizarViagem(int rotaId, int carroId, int motoristaId) {
         Rota rota = buscarRotaPorId(rotaId);
-        Carro carro = buscarCarroPorId(carroId);
+        CarroEletrico carro = buscarCarroPorId(carroId);
         Motorista motorista = buscarMotoristaPorId(motoristaId);
     
         if (rota != null && carro != null && motorista != null) {
@@ -51,7 +51,7 @@ public class Sistema {
 
     public void listarVeiculosAutonomiaBaixa(){
         System.out.println("Carros com autonomia inferior a 20%:");
-        for (Carro carro : carros){
+        for (CarroEletrico carro : carros){
             if (carro.getAutonomia() <= (carro.getBateriaMax() * 0.20)){
                 System.out.println("Carro ID: " + carro.getId());
             }
@@ -67,29 +67,29 @@ public class Sistema {
     }
 
     public void ListarCarrosManutencao(){
-        for (Carro carro: carros){
+        for (CarroEletrico carro: carros){
             if (carro.getQuilometragem() > 10000){
                 System.out.println(carro.getId());
             }
         }
     }
 
-    public void addCarro (Carro carro){
+    public void addCarro (CarroEletrico carro){
         carros.add(carro);
         System.err.println("O carro " + carro.getId() + " foi cadastrado com sucesso.");
     }
 
-    public void delCarro (Carro carro){
+    public void delCarro (CarroEletrico carro){
         carros.remove(carro);
         System.err.println("O carro " + carro.getId() + " foi removido com sucesso.");
     }
 
-    public List<Carro> getCarros(){
+    public List<CarroEletrico> getCarros(){
         return carros;
     }
 
     public void listarCarros(){
-        for (Carro carro: carros){
+        for (CarroEletrico carro: carros){
             System.err.println("Carro ID: " + carro.getId());
         }
     }
@@ -123,8 +123,8 @@ public class Sistema {
         return null;
     }
     
-    private Carro buscarCarroPorId(int id) {
-        for (Carro carro : carros) {
+    private CarroEletrico buscarCarroPorId(int id) {
+        for (CarroEletrico carro : carros) {
             if (carro.getId() == id) {
                 return carro;
             }

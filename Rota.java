@@ -15,7 +15,7 @@ public class Rota {
     }
 
     @SuppressWarnings("unchecked")
-    public void Viajar(Carro carro, Motorista motorista, Sistema sistema) {
+    public void Viajar(CarroEletrico carro, Motorista motorista, Sistema sistema) {
         List<Object> response = VerificarDistancia(carro, 0, new ArrayList<Eletroposto>());
         if ((Boolean) response.get(0)) {
             this.PercorrerViagem(carro, (List<Eletroposto>) response.get(1));
@@ -27,7 +27,7 @@ public class Rota {
         }
     }
 
-    private void PercorrerViagem(Carro carro, List<Eletroposto> paradas) {
+    private void PercorrerViagem(CarroEletrico carro, List<Eletroposto> paradas) {
         double distanciaPercorrida = 0;
         if (paradas.size() > 0) {
             for (int index = 0; index < paradas.size(); index++) {
@@ -61,7 +61,7 @@ public class Rota {
         System.out.println("Viagem finalizada! Distância total: " + this.distancia + "km\nAutonomia final do carro: " + carro.getAutonomia() + "km");
     }
 
-    public List<Object> VerificarDistancia(Carro carro, double km, List<Eletroposto> paradas) {
+    public List<Object> VerificarDistancia(CarroEletrico carro, double km, List<Eletroposto> paradas) {
         List<Object> lista = new ArrayList<>();
         double autonomiaAtual = carro.getAutonomia();
         double distanciaPercorrida = km;

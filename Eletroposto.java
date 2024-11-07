@@ -15,7 +15,7 @@ public class Eletroposto {
         this.km = km;
     }
 
-    public void carregarCarro(Carro carro){
+    public void carregarCarro(CarroEletrico carro){
         if (vagas_disponiveis > 0){
             this.addCarro();
 

@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class Carro {
+public class CarroEletrico {
     protected int id; // ID
     protected String marca; // Marca do carro
     protected String modelo; // Modelo do carro
@@ -13,7 +13,7 @@ public class Carro {
     protected List<Recarga> recargas; // Registro de recargas do carro
     protected double quilometragem = 0.0; // Registro da quilometragem do carro
 
-    public Carro(int id, String marca, String modelo, int ano_fabricacao, double autonomia, int tempo_recarga) {
+    public CarroEletrico(int id, String marca, String modelo, int ano_fabricacao, double autonomia, int tempo_recarga) {
         this.id = id;
         this.marca = marca;
         this.modelo = modelo;

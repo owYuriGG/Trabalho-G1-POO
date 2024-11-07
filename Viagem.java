@@ -2,13 +2,13 @@ import java.util.List;
 
 public class Viagem {
     private int id;
-    private Carro carro;
+    private CarroEletrico carro;
     private Rota rota;
     private Motorista motorista;
     private Double quilometragem;
     private List<Eletroposto> abastecimentos;
     
-    public Viagem(int id, Carro carro, Rota rota, Motorista motorista, Double quilometragem, List<Eletroposto> abastecimentos) {
+    public Viagem(int id, CarroEletrico carro, Rota rota, Motorista motorista, Double quilometragem, List<Eletroposto> abastecimentos) {
         this.id = id;
         this.carro = carro;
         this.rota = rota;
@@ -25,7 +25,7 @@ public class Viagem {
         return id;
     }
 
-    public Carro getCarro() {
+    public CarroEletrico getCarro() {
         return carro;
     }
 
